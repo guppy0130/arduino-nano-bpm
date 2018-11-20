@@ -27,7 +27,7 @@ These are Amazon affiliate links; a small part of your purchase goes to support 
 * Incoming information is a little noisy, but it's being managed by the `delta < 1000` check. If `delta > 1000`, the information associated with it doesn't look great, so it's thrown out (usually, this is a <60bpm).
     * Time to register finger touch slowed as a result
     * Can appear as if not registering anything - just be patient.
-* Included a quick graph over time example in case you need to modify alignment/direction/etc. in `circular-buffer-ex.ino`. It's a quick implementation of the circular buffer/graphing code used in `arduino-nano-bpm.ino`, except with randomly generated data.
+* Included a quick graph over time example in case you need to modify alignment/direction/etc. in `circular-buffer-ex.ino`. It's a quick implementation of the circular buffer/graphing code used in `arduino-nano-bpm.ino`, except with randomly generated data. You'll need to move this file before uploading, otherwise the Arduino IDE will complain about `display` being redefined.
 
 ### Displayed Information
 

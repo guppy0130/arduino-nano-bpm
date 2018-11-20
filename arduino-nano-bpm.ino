@@ -23,6 +23,7 @@ int beatAvg;
 long delta;
 
 int maxx = -1;
+int seen = 0;
 
 void setup() {
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
@@ -49,6 +50,12 @@ void setup() {
 void loop() {
   long irValue = particleSensor.getIR();
 
+  if (irValue > 50000 && !seen) {
+    reset();
+    display.print("Gathering data...");
+    display.display();
+  }
+
   if (checkForBeat(irValue)) {
     // We sensed a beat!
     long now = millis();
@@ -64,8 +71,8 @@ void loop() {
 
       // Take average of last 4 readings
       beatAvg = 0;
-      for (byte x = 0; x < RATE_SIZE ; x++) {
-        beatAvg += rates[(rateSpot - x) % SAMP_SIZE];
+      for (byte x = 0; x < RATE_SIZE; x++) {
+        beatAvg += rates[(rateSpot - x - 1) % SAMP_SIZE];
       }
       beatAvg /= RATE_SIZE;
 
@@ -76,6 +83,7 @@ void loop() {
       int tmp = maxx / HEIGHT;
 
       reset();
+      seen = 1;
       display.print("Delta: ");
       display.print(delta);
       display.println("ms");
@@ -95,7 +103,8 @@ void loop() {
   if (irValue < 50000) {
     reset();
     zero();
-    display.print("No finger on sensor.");
+    seen = 0;
+    display.print("Put finger on sensor.");
     display.display();
   }
 }
