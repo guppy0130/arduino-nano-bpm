@@ -64,8 +64,9 @@ void loop() {
 
       // Take average of last 4 readings
       beatAvg = 0;
-      for (byte x = 0; x < RATE_SIZE ; x++)
+      for (byte x = 0; x < RATE_SIZE ; x++) {
         beatAvg += rates[(rateSpot - x) % SAMP_SIZE];
+      }
       beatAvg /= RATE_SIZE;
 
       // calc height
